@@ -19,10 +19,10 @@ MuseScore {
 
     onRun: {
         // check MuseScore version
-        if (!(mscoreMajorVersion == 2 && mscoreMinorVersion >= 1)) {
+        if (!(mscoreMajorVersion == 2 && (mscoreMinorVersion > 0 || mscoreUpdateVersion>0))) {
             exportDialog.visible = false
             errorDialog.openErrorDialog(
-                        qsTr("Minimum MuseScore Version 2.1.0 required for export"))
+                        qsTr("Minimum MuseScore Version 2.0.1 required for export"))
         }
         if (!(curScore)) {
             errorDialog.openErrorDialog(qsTr(
@@ -131,8 +131,14 @@ MuseScore {
         selectFolder: true
         visible: false
         onAccepted: {
-            exportDirectory.text = directorySelectDialog.fileUrl.toString(
-                        ).replace("file://", "")
+            exportDirectory.text = directorySelectDialog.fileUrl.toString()
+	    if (Qt.platform.os=="windows") {
+	      exportDirectory.text=exportDirectory.text.replace("file:///", "")
+	    }
+	    else {
+	      exportDirectory.text=exportDirectory.text.replace("file://", "")
+	    }
+	      
         }
         Component.onCompleted: visible = false
     }
