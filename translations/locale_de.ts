@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de" sourcelanguage="en">
+<TS version="2.1" language="de" sourcelanguage="en">
 <context>
     <name>UltraStarAnnotate</name>
     <message>
@@ -34,7 +34,7 @@
     <message>
         <location filename="../UltrastarExport.qml" line="25"/>
         <source>Minimum MuseScore Version 2.1.0 required for export</source>
-        <translation>Für den Export wird mindestens MuseScore Version 2.1.0 benötigt</translation>
+        <translation>Für den Export wird mindestens MuseScore Version 2.0.1 benötigt</translation>
     </message>
     <message>
         <location filename="../UltrastarExport.qml" line="28"/>
