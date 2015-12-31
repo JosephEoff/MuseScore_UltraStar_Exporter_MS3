@@ -44,8 +44,8 @@ MuseScore {
         loadInstrumentList(staffList)
         instrumentPlayer1.model = staffList
         instrumentPlayer2.model = staffList
-        loadVoiceList(instrumentPlayer1.currentText, player1Voices)
-        loadVoiceList(instrumentPlayer2.currentText, player2Voices)
+        loadVoiceList(instrumentPlayer1.currentText, player1Voices, voicePlayer1)
+        loadVoiceList(instrumentPlayer2.currentText, player2Voices, voicePlayer2)
         directorySelectDialog.folder = exportDirectory.text
         //exportDirectory.text = directorySelectDialog.fileUrl.toString().replace(
         // "file://", "")
@@ -60,18 +60,18 @@ MuseScore {
         }
     }
 
-    function loadVoiceList(instrumentName, voiceList) {
+    function loadVoiceList(instrumentName, voiceList, voiceCombo) {
         for (var i = 0; i < curScore.parts.length; i++) {
             if (curScore.parts[i].partName === instrumentName) {
-                voiceList.clear()
-                for (var j = 0; j < curScore.parts[i].endTrack
-                     - curScore.parts[i].startTrack; j++) {
-                    voiceList.append({
-                                         j: j
-                                     })
+                voiceList.clear();
+                for (var j = 0; j < (curScore.parts[i].endTrack - curScore.parts[i].startTrack); j++) {
+                    voiceList.append({ j: qsTr("Voice" + ' ' + (j + 1)) });
                 }
             }
         }
+        voiceCombo.model = voiceList; //applying the new list sets currentIndex to 0, but doesn't update the shown comboboxText
+        voiceCombo.currentIndex = 1;  //force an indexChange to force the combo to update its label
+        voiceCombo.currentIndex = 0;  //force indexChange back to default, now the label will be updated
     }
 
     Settings {
@@ -174,8 +174,7 @@ MuseScore {
                     ComboBox {
                         id: instrumentPlayer1
                         onCurrentIndexChanged: {
-                            loadVoiceList(currentText, player1Voices)
-                            voicePlayer1.model = player1Voices
+                            loadVoiceList(currentText, player1Voices, voicePlayer1)
                         }
                     }
                     Label {
@@ -206,8 +205,7 @@ MuseScore {
                     ComboBox {
                         id: instrumentPlayer2
                         onCurrentIndexChanged: {
-                            loadVoiceList(currentText, player2Voices)
-                            voicePlayer2.model = player2Voices
+                            loadVoiceList(currentText, player2Voices, voicePlayer2)
                         }
                     }
                     Label {
