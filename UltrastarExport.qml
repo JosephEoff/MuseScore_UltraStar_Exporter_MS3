@@ -294,8 +294,7 @@ MuseScore {
         txtContent += "#VIDEOGAP:" + crlf
         txtContent += "#START:0" + crlf
 
-        var bpm = getTempo_BPM()
-        txtContent += "#BPM:" + bpm + crlf
+        txtContent += "#BPM:" + getTempo_BPM() + crlf;
 
         txtContent += "#GAP:0" + crlf
 
@@ -307,13 +306,13 @@ MuseScore {
                                voicePlayer1.currentText)
 
         cursor.rewind(0)
-        txtContent += getSongText(cursor, bpm)
+        txtContent += getSongText(cursor);
 
         if (duet.checked) {
             txtContent += "P2" + crlf
             cursor = getCursor(instrumentPlayer2.currentText,
                                voicePlayer2.currentText)
-            txtContent += getSongText(cursor, bpm)
+            txtContent += getSongText(cursor);
         }
         txtContent += "E" + crlf
         console.log(txtContent)
@@ -322,7 +321,7 @@ MuseScore {
         return true
     }
 
-    function getSongText(cursor, bpm) {
+    function getSongText(cursor) {
         var crlf = "\r\n"
         var syllable = ""
         var songContent = ""
@@ -338,8 +337,7 @@ MuseScore {
         while (cursor.segment) {
 
             if (needABreak && gotfirstsyllable) {
-                timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick,
-                                                                   bpm)
+                timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
                 songContent += "-" + timestamp_midi_ticks + crlf
                 needABreak = false
             }
@@ -362,10 +360,8 @@ MuseScore {
                 }
 
                 pitch_midi = cursor.element.notes[0].ppitch
-                duration_midi_ticks = calculateMidiTicksfromTicks(
-                            cursor.element.duration.ticks, bpm)
-                timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick,
-                                                                   bpm)
+                duration_midi_ticks = calculateMidiTicksfromTicks(cursor.element.duration.ticks);
+                timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
 
                 if (!gotfirstsyllable) {
                     gotfirstsyllable = true
@@ -403,8 +399,14 @@ MuseScore {
         return false
     }
 
-    function calculateMidiTicksfromTicks(ticks, bpm) {
-        return Math.round((ticks / 490.96154) * 60 / bpm * 15)
+    function calculateMidiTicksfromTicks(ticks) {
+		//division is a global variable holding the tickLength of a crochet(1/4th note)
+        return Math.round(ticks / division * 4); // *4 scales from crotchet-reference to whole measure
+        //text below is for high accuracy verion TODO
+
+		// /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
+		// and we want to have maximal precision whilst keeping numeric values as small as possible
+		//return (ticks / 5);
     }
 
     function getCursor(instrument, voice) {
@@ -420,19 +422,41 @@ MuseScore {
         }
     }
 
+    function calculateBPMfromTempo(tempo) {
+        //tempo is a % compared to 60bpm (tempo == 1 -> bpm == 60)
+        return (tempo * 60);
+        //text below is for high accuracy verion TODO
+
+        //division is a global variable holding the tickLength of a crochet(1/4th note)
+        //scaling tempo with tickLength allows very precise approximation of real note lengths in export
+        // *15 for some unknown reason, likely because 4* crotchet == 60
+        // /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
+        // and we want to have maximal precision whilst keeping numeric values as small as possible
+        // so in total we do (*15/5) == * 3
+        //return (tempo * division * 3);
+    }
+
     function getTempo_BPM() {
-        var cursor = curScore.newCursor()
-        cursor.rewind(0)
-        while (cursor.segment) {
-            var an = cursor.segment.annotations
-            for (var i = 0; i < cursor.segment.annotations.length; i++) {
-                if (cursor.segment.annotations[i].type === Element.TEMPO_TEXT) {
-                    console.log("Tempo: " + cursor.segment.annotations[i].tempo)
-                    return cursor.segment.annotations[i].tempo * 60
+        var bpm = 2; //default BPM = 120bpm = 200% = 2 according to https://musescore.org/en/node/16635
+        //song BPM is expected at the first chord/rest of the score, so let's find it
+        var segment = curScore.firstSegment(Segment.ChordRest);
+        //filter on firstSegment doesn't seem to work, so stepping here manually
+        while ((segment != null) && (segment.segmentType !== Segment.ChordRest)) {
+            segment = segment.nextInMeasure;
+        }
+        if (segment != null) { //found first chord/rest of the score
+            //let's see if there's a TEMPO_TEXT assigned to it
+            for (var i = segment.annotations.length; i-- > 0; ) {
+                if (segment.annotations[i].type === Element.TEMPO_TEXT) {
+                    bpm = segment.annotations[i].tempo;
+                    break;
                 }
             }
-            cursor.next()
         }
+        console.log('Tempo: ' + bpm + ' | Real BPM: ' + (bpm * 60));
+        bpm = calculateBPMfromTempo(bpm);
+        console.log('\tTickBPM: ' + bpm);
+        return bpm;
     }
 
     function exportAudioFile() {
