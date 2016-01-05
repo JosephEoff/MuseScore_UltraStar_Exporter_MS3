@@ -46,9 +46,7 @@ MuseScore {
         instrumentPlayer2.model = staffList
         loadVoiceList(instrumentPlayer1.currentText, player1Voices)
         loadVoiceList(instrumentPlayer2.currentText, player2Voices)
-        directorySelectDialog.folder = exportDirectory.text
-        //exportDirectory.text = directorySelectDialog.fileUrl.toString().replace(
-        // "file://", "")
+        directorySelectDialog.folder = ((Qt.platform.os=="windows")? "file:///" : "file://") + exportDirectory.text;
     }
 
     function loadInstrumentList(instrumentList) {
@@ -131,14 +129,7 @@ MuseScore {
         selectFolder: true
         visible: false
         onAccepted: {
-            exportDirectory.text = directorySelectDialog.fileUrl.toString()
-	    if (Qt.platform.os=="windows") {
-	      exportDirectory.text=exportDirectory.text.replace("file:///", "")
-	    }
-	    else {
-	      exportDirectory.text=exportDirectory.text.replace("file://", "")
-	    }
-	      
+            exportDirectory.text = this.folder.toString().replace("file://", "").replace(/^\/(.:\/)(.*)$/, "$1$2");
         }
         Component.onCompleted: visible = false
     }
