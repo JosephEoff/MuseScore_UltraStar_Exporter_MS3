@@ -44,8 +44,8 @@ MuseScore {
         loadInstrumentList(staffList)
         instrumentPlayer1.model = staffList
         instrumentPlayer2.model = staffList
-        loadVoiceList(instrumentPlayer1.currentText, player1Voices, voicePlayer1)
-        loadVoiceList(instrumentPlayer2.currentText, player2Voices, voicePlayer2)
+        loadVoiceList(instrumentPlayer1.currentText, player1Voices, voicePlayer1);
+        loadVoiceList(instrumentPlayer2.currentText, player2Voices, voicePlayer2);
         directorySelectDialog.folder = ((Qt.platform.os=="windows")? "file:///" : "file://") + exportDirectory.text;
     }
 
@@ -165,7 +165,7 @@ MuseScore {
                     ComboBox {
                         id: instrumentPlayer1
                         onCurrentIndexChanged: {
-                            loadVoiceList(currentText, player1Voices, voicePlayer1)
+                            loadVoiceList(currentText, player1Voices, voicePlayer1);
                         }
                     }
                     Label {
@@ -196,7 +196,7 @@ MuseScore {
                     ComboBox {
                         id: instrumentPlayer2
                         onCurrentIndexChanged: {
-                            loadVoiceList(currentText, player2Voices, voicePlayer2)
+                            loadVoiceList(currentText, player2Voices, voicePlayer2);
                         }
                     }
                     Label {
