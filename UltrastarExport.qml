@@ -129,7 +129,7 @@ MuseScore {
         selectFolder: true
         visible: false
         onAccepted: {
-            exportDirectory.text = directorySelectDialog.fileUrl.toString().replace(/file:\/\/\/?(.*)/, "$1");
+            exportDirectory.text = directorySelectDialog.fileUrl.toString().replace("file://", "").replace(/^\/(.:\/)(.*)$/, "$1$2");
         }
         Component.onCompleted: visible = false
     }
