@@ -398,13 +398,17 @@ MuseScore {
     }
 
     function calculateMidiTicksfromTicks(ticks) {
-		//division is a global variable holding the tickLength of a crochet(1/4th note)
-        return Math.round(ticks / division * 4); // *4 scales from crotchet-reference to whole measure
-        //text below is for high accuracy verion TODO
-
-		// /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
-		// and we want to have maximal precision whilst keeping numeric values as small as possible
-		//return (ticks / 5);
+		if (highAccuracyMode.checked)
+		{
+			// /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
+			// and we want to have maximal precision whilst keeping numeric values as small as possible
+			return (ticks / 5);
+		}
+		else
+		{//normal accuracy mode
+			//division is a global variable holding the tickLength of a crochet(1/4th note)
+			return Math.round(ticks / division * 4); // *4 scales from crotchet-reference to whole measure
+		}
     }
 
     function getCursor(instrument, voice) {
@@ -422,16 +426,20 @@ MuseScore {
 
     function calculateBPMfromTempo(tempo) {
         //tempo is a % compared to 60bpm (tempo == 1 -> bpm == 60)
-        return (tempo * 60);
-        //text below is for high accuracy verion TODO
-
-        //division is a global variable holding the tickLength of a crochet(1/4th note)
-        //scaling tempo with tickLength allows very precise approximation of real note lengths in export
-        // *15 for some unknown reason, likely because 4* crotchet == 60
-        // /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
-        // and we want to have maximal precision whilst keeping numeric values as small as possible
-        // so in total we do (*15/5) == * 3
-        //return (tempo * division * 3);
+        if (highAccuracyMode.checked)
+		{
+			//division is a global variable holding the tickLength of a crochet(1/4th note)
+			//scaling tempo with tickLength allows very precise approximation of real note lengths in export
+			// *15 (*60 for real BPM, then /4 to scale to crotchet because 4* crotchet == 60 and division is in crotchet)
+			// /5 because values at https://musescore.org/plugin-development/tick-length-values are all multiples of 5
+			// and we want to have maximal precision whilst keeping numeric values as small as possible
+			// so in total we do (*15/5) == * 3
+			return (tempo * division * 3);
+		}
+		else
+		{//normal accuracy mode
+			return (tempo * 60);
+		}
     }
 
     function getTempo_BPM() {
