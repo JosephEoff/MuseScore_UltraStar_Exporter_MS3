@@ -75,6 +75,7 @@ MuseScore {
     Settings {
         id: settings
         property alias exportDirectory: exportDirectory.text
+        property alias highAccuracyMode: highAccuracyMode.checked
     }
 
     ListModel {
@@ -217,6 +218,12 @@ MuseScore {
                     Label {
                         id: exportDirectory
                         text: ""
+                    }
+                    Label {
+                        text: qsTr("High Accuracy Mode")
+                    }
+                    CheckBox {
+                        id: highAccuracyMode
                     }
                     Button {
                         id: exportButton
