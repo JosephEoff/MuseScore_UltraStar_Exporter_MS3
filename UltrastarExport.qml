@@ -63,7 +63,7 @@ MuseScore {
             if (curScore.parts[i].partName === instrumentName) {
                 voiceList.clear();
                 for (var j = 0; j < (curScore.parts[i].endTrack - curScore.parts[i].startTrack); j++) {
-                    voiceList.append({ j: qsTr("Voice" + ' ' + (j + 1)) });
+                    voiceList.append({ j: (j + 1) });
                 }
             }
         }
