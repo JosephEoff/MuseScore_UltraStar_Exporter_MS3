@@ -13,7 +13,7 @@ import FileIO 1.0
 //Copyright Joseph Eoff, April 2015
 MuseScore {
     menuPath: "View." +qsTr("UltraStar Annotator")
-    description: qsTr("Annotate Score for UltraStart Export")
+    description: qsTr("Annotate Score for UltraStar Export")
     pluginType: "dock"
     dockArea: "left"
     onRun: {

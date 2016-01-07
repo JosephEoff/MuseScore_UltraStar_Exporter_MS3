@@ -10,7 +10,7 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Annotate Score for UltraStart Export</source>
+        <source>Annotate Score for UltraStar Export</source>
         <translation>Annotiere Partitur für UltraStar Export</translation>
     </message>
     <message>
@@ -97,7 +97,7 @@
         <location line="+10"/>
         <source>High Accuracy Mode</source>
         <translatorcomment>GoogleTranslate version</translatorcomment>
-        <translation>Hochgenaue Modus</translation>
+        <translation>Hochgenauer Modus</translation>
     </message>
     <message>
         <location line="+7"/>

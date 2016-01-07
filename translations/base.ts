@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>UltraStarAnnotate</name>
     <message>
@@ -10,7 +10,7 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Annotate Score for UltraStart Export</source>
+        <source>Annotate Score for UltraStar Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
