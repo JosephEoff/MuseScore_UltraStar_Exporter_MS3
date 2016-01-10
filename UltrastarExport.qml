@@ -299,7 +299,7 @@ MuseScore {
         }
 
         var cursor = getCursor(instrumentPlayer1.currentText,
-                               voicePlayer1.currentText)
+                               voicePlayer1.currentIndex)
 
         cursor.rewind(0)
         txtContent += getSongText(cursor);
@@ -307,7 +307,7 @@ MuseScore {
         if (duet.checked) {
             txtContent += "P2" + crlf
             cursor = getCursor(instrumentPlayer2.currentText,
-                               voicePlayer2.currentText)
+                               voicePlayer2.currentIndex)
             txtContent += getSongText(cursor);
         }
         txtContent += "E" + crlf
