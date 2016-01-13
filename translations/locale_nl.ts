@@ -2,6 +2,33 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="nl_NL">
 <context>
+    <name>Ms::MuseScore</name>
+    <message>
+        <location filename="../UltrastarExport.qml" line="+161"/>
+        <location line="+29"/>
+        <source>Instrument</source>
+        <translation type="unfinished">Instrument</translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <location line="+33"/>
+        <source>Export</source>
+        <translation type="unfinished">Exporteren</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <location line="-195"/>
+        <source>No score open.
+This plugin requires an open score to run.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UltraStarAnnotate</name>
     <message>
         <location filename="../UltraStarAnnotate.qml" line="+15"/>
@@ -10,8 +37,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Annotate Score for UltraStart Export</source>
-        <translation>Annoteer partituren voor de UltraStar Export plugin</translation>
+        <source>Annotate Score for UltraStar Export</source>
+        <translation>Annoteer partituur voor UltraStar Export</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -32,17 +59,12 @@
 <context>
     <name>UltrastarExport</name>
     <message>
-        <location filename="../UltrastarExport.qml" line="+25"/>
-        <source>Minimum MuseScore Version 2.0.1 required for export</source>
-        <translation>Exporter vereist minimaal versie 2.0.1 van MuseScore</translation>
+        <location filename="../UltrastarExport.qml" line="-3"/>
+        <source>Minimum MuseScore Version %1 required for export</source>
+        <translation>Exporter vereist minimaal versie %1 van MuseScore</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Select a score before exporting.</source>
-        <translation>Open een partituur alvorens te exporteren.</translation>
-    </message>
-    <message>
-        <location line="+68"/>
+        <location line="+71"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
@@ -62,24 +84,18 @@
         <translation>UltraStar Export</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>Player 1</source>
         <translation>Speler 1</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+32"/>
-        <source>Instrument</source>
-        <translation>Instrument</translation>
-    </message>
-    <message>
-        <location line="-22"/>
-        <location line="+32"/>
+        <location line="+13"/>
+        <location line="+29"/>
         <source>Voice</source>
         <translation>Stem</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-23"/>
         <source>Duet</source>
         <translation>Duet</translation>
     </message>
@@ -89,7 +105,7 @@
         <translation>Speler 2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
         <source>Select export directory</source>
         <translation>Selecteer export map</translation>
     </message>
@@ -99,12 +115,7 @@
         <translation>Hoge Nauwkeurigheidsmode</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Export</source>
-        <translation>Exporteren</translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+15"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>

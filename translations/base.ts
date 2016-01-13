@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
+<context>
+    <name>Ms::MuseScore</name>
+    <message>
+        <location filename="../UltrastarExport.qml" line="+161"/>
+        <location line="+29"/>
+        <source>Instrument</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <location line="+33"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <location line="-195"/>
+        <source>No score open.
+This plugin requires an open score to run.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context>
     <name>UltraStarAnnotate</name>
     <message>
@@ -32,17 +59,12 @@
 <context>
     <name>UltrastarExport</name>
     <message>
-        <location filename="../UltrastarExport.qml" line="+25"/>
-        <source>Minimum MuseScore Version 2.0.1 required for export</source>
+        <location filename="../UltrastarExport.qml" line="-3"/>
+        <source>Minimum MuseScore Version %1 required for export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Select a score before exporting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+68"/>
+        <location line="+71"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -62,24 +84,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>Player 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+32"/>
-        <source>Instrument</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-22"/>
-        <location line="+32"/>
+        <location line="+13"/>
+        <location line="+29"/>
         <source>Voice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-23"/>
         <source>Duet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -89,7 +105,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
         <source>Select export directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -99,12 +115,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+15"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -119,12 +130,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="+5"/>
         <source></source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+3"/>
         <source>Score must have a title.</source>
         <translation type="unfinished"></translation>
     </message>
