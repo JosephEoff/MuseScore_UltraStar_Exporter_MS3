@@ -324,6 +324,7 @@ MuseScore {
         var makeGolden = false
         var makeFreestyle = false
         var lineHeader = ":"
+        var changeTempo = false;
 
         while (cursor.segment) {
 
@@ -336,6 +337,7 @@ MuseScore {
             needABreak = checkForMarkerInStaffText(cursor.segment, "/", true)
             makeGolden = checkForMarkerInStaffText(cursor.segment, "*", true)
             makeFreestyle = checkForMarkerInStaffText(cursor.segment, "F", true)
+            changeTempo = hasBPMChange(cursor.segment);
 
             if (cursor.element && cursor.element.type === Element.CHORD) {
                 syllable = "-"
@@ -366,6 +368,9 @@ MuseScore {
                     lineHeader = "F"
                 }
 
+                if (changeTempo) {
+                    songContent += "B " + timestamp_midi_ticks + " " + getNewBPMFromSegment(cursor.segment) + crlf;
+                }
                 songContent += lineHeader + " " + timestamp_midi_ticks + " "
                         + duration_midi_ticks + " " + pitch_midi + " " + syllable + crlf
             }
@@ -388,6 +393,24 @@ MuseScore {
             }
         }
         return false
+    }
+	
+    function hasBPMChange(segment) {
+        for (var i = 0; i < segment.annotations.length; i++) {
+            if (segment.annotations[i].type === Element.TEMPO_TEXT) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getNewBPMFromSegment(segment) {
+        for (var i = 0; i < segment.annotations.length; i++) {
+            if (segment.annotations[i].type === Element.TEMPO_TEXT) {
+                return calculateBPMfromTempo(segment.annotations[i].tempo);
+            }
+        }
+        return 0; //invalid - no tempo text found
     }
 
     function calculateMidiTicksfromTicks(ticks) {
