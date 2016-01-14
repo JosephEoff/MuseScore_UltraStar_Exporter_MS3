@@ -18,15 +18,15 @@ MuseScore {
     description: "Export to Ultrastar format"
 
     onRun: {
+        exportDialog.visible = false
         // check MuseScore version
-        if (!(mscoreMajorVersion == 2 && (mscoreMinorVersion > 0 || mscoreUpdateVersion>0))) {
-            exportDialog.visible = false
+        if (!(mscoreMajorVersion == 2 && (mscoreMinorVersion > 0 || mscoreUpdateVersion > 0))) {
             errorDialog.openErrorDialog(
-                        qsTr("Minimum MuseScore Version 2.0.1 required for export"))
+                        qsTr("Minimum MuseScore Version %1 required for export").arg("2.0.1"))
         }
         if (!(curScore)) {
-            errorDialog.openErrorDialog(qsTr(
-                                            "Select a score before exporting."))
+            errorDialog.openErrorDialog(qsTranslate("QMessageBox",
+					"No score open.\nThis plugin requires an open score to run.\n"))
             Qt.quit()
         } else {
             exportDialog.visible = true
@@ -151,17 +151,14 @@ MuseScore {
                 GridLayout {
                     id: grid
                     columns: 2
-                    anchors.left: parent.left
-                    anchors.top: parent.top
+                    anchors.fill: parent
                     anchors.margins: 10
                     Label {
                         text: qsTr("Player 1")
+                        Layout.columnSpan: 2
                     }
                     Label {
-                        text: " "
-                    }
-                    Label {
-                        text: qsTr("Instrument")
+                        text: qsTranslate("Ms::MuseScore", "Instrument")
                     }
                     ComboBox {
                         id: instrumentPlayer1
@@ -187,12 +184,10 @@ MuseScore {
                     }
                     Label {
                         text: qsTr("Player 2")
+                        Layout.columnSpan: 2
                     }
                     Label {
-                        text: " "
-                    }
-                    Label {
-                        text: qsTr("Instrument")
+                        text: qsTranslate("Ms::MuseScore", "Instrument")
                     }
                     ComboBox {
                         id: instrumentPlayer2
@@ -225,7 +220,7 @@ MuseScore {
                     }
                     Button {
                         id: exportButton
-                        text: qsTr("Export")
+                        text: qsTranslate("PrefsDialogBase", "Export")
                         onClicked: {
                             exportUltrastar()
                             //Qt.quit()

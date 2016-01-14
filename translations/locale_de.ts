@@ -2,6 +2,33 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de" sourcelanguage="en">
 <context>
+    <name>Ms::MuseScore</name>
+    <message>
+        <location filename="../UltrastarExport.qml" line="+161"/>
+        <location line="+29"/>
+        <source>Instrument</source>
+        <translation type="unfinished">Instrumente</translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <location line="+33"/>
+        <source>Export</source>
+        <translation type="unfinished">Export</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <location line="-195"/>
+        <source>No score open.
+This plugin requires an open score to run.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UltraStarAnnotate</name>
     <message>
         <location filename="../UltraStarAnnotate.qml" line="+15"/>
@@ -32,17 +59,12 @@
 <context>
     <name>UltrastarExport</name>
     <message>
-        <location filename="../UltrastarExport.qml" line="+25"/>
-        <source>Minimum MuseScore Version 2.0.1 required for export</source>
-        <translation>Für den Export wird mindestens MuseScore Version 2.0.1 benötigt</translation>
+        <location filename="../UltrastarExport.qml" line="-3"/>
+        <source>Minimum MuseScore Version %1 required for export</source>
+        <translation>Für den Export wird mindestens MuseScore Version %1 benötigt</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Select a score before exporting.</source>
-        <translation>Wähle eine Partitur zum Exportieren aus.</translation>
-    </message>
-    <message>
-        <location line="+68"/>
+        <location line="+71"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
@@ -62,24 +84,18 @@
         <translation>UltraStar Export</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>Player 1</source>
         <translation>Spieler 1</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+32"/>
-        <source>Instrument</source>
-        <translation>Instrumente</translation>
-    </message>
-    <message>
-        <location line="-22"/>
-        <location line="+32"/>
+        <location line="+13"/>
+        <location line="+29"/>
         <source>Voice</source>
         <translation>Stimme</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-23"/>
         <source>Duet</source>
         <translation>Duett</translation>
     </message>
@@ -89,7 +105,7 @@
         <translation>Spieler 2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
         <source>Select export directory</source>
         <translation>Export ordner auswählen</translation>
     </message>
@@ -100,12 +116,7 @@
         <translation>Hochgenauer Modus</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Export</source>
-        <translation>Export</translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+15"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -120,12 +131,7 @@
         <translation>Exportiere .mp3 Datei.</translation>
     </message>
     <message>
-        <location line="-2"/>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+8"/>
         <source>Score must have a title.</source>
         <translation>Partitur muss einen Titel haben.</translation>
     </message>
