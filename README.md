@@ -12,6 +12,7 @@ Features:
 * Export for Duet is implemented but mostly untested.
 * Selection of the Instrument and Voice to be used for the lyrics for player 1 and player 2.
 * Annotator to mark line breaks and golden or freestyle notes.
+* Supports tempo changes (tested with Performous)
 
 Usage:
 
