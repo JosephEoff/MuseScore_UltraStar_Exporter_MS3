@@ -317,32 +317,46 @@ MuseScore {
         var syllable = ""
         var songContent = ""
         var pitch_midi
-        var timestamp_midi_ticks
-        var duration_midi_ticks
+        var timestamp_midi_ticks=0
+        var duration_midi_ticks=0
         var gotfirstsyllable = false
         var needABreak = false
         var makeGolden = false
         var makeFreestyle = false
+        var prematureSyllableBreakNeeded=false;
         var lineHeader = ":"
         var changedTempo = undefined;
 
+	timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
+	
         while (cursor.segment) {
+	  
+	   if ((prematureSyllableBreakNeeded || needABreak || !tiedBack(cursor)) && duration_midi_ticks>0) {
+	     if (syllable==""){
+	       syllable="_"
+	     }
+	     songContent += lineHeader + " " + timestamp_midi_ticks + " " + duration_midi_ticks + " " + pitch_midi + " " + syllable + crlf
+	     timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
+	     syllable=""
+	     duration_midi_ticks=0
+	     
+	   }
 
-            if (needABreak && gotfirstsyllable) {
+	   if (needABreak && gotfirstsyllable) {
                 timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
                 songContent += "-" + timestamp_midi_ticks + crlf
-                needABreak = false
+                needABreak=false
             }
-
+	   
             needABreak = checkForMarkerInStaffText(cursor.segment, "/", true)
             makeGolden = checkForMarkerInStaffText(cursor.segment, "*", true)
             makeFreestyle = checkForMarkerInStaffText(cursor.segment, "F", true)
             changedTempo = getNewBPMFromSegment(cursor.segment);
+	    prematureSyllableBreakNeeded=makeGolden||makeFreestyle||changedTempo
 
             if (cursor.element && cursor.element.type === Element.CHORD) {
-                syllable = "-"
                 if (cursor.element.lyrics.length > 0) {
-                    syllable = cursor.element.lyrics[0].text
+                    syllable += cursor.element.lyrics[0].text
                     if (cursor.element.lyrics[0].syllabic === Lyrics.SINGLE
                             || cursor.element.lyrics[0].syllabic === Lyrics.END) {
 
@@ -353,11 +367,11 @@ MuseScore {
                 }
 
                 pitch_midi = cursor.element.notes[0].ppitch
-                duration_midi_ticks = calculateMidiTicksfromTicks(cursor.element.duration.ticks);
-                timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
+                duration_midi_ticks += calculateMidiTicksfromTicks(cursor.element.duration.ticks);
 
                 if (!gotfirstsyllable) {
                     gotfirstsyllable = true
+                    timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
                 }
 
                 lineHeader = ":"
@@ -371,12 +385,19 @@ MuseScore {
                 if (changedTempo) {
                     songContent += "B " + timestamp_midi_ticks + " " + changedTempo + crlf;
                 }
-                songContent += lineHeader + " " + timestamp_midi_ticks + " "
-                        + duration_midi_ticks + " " + pitch_midi + " " + syllable + crlf
+               
             }
             cursor.next()
         }
         return songContent
+    }
+    
+    function tiedBack(cursor){
+      var tied=false
+      if (cursor.segment && cursor.element && (cursor.element.type === Element.CHORD) && (cursor.element.notes[0].tieBack != null)){
+	tied=true;
+      }
+      return tied
     }
 
     function checkForMarkerInStaffText(segment, marker, hide) {
