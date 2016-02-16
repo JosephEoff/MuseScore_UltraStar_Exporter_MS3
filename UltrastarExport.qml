@@ -74,6 +74,7 @@ MuseScore {
 
     Settings {
         id: settings
+        category: "UltraStar_Exporter"
         property alias exportDirectory: exportDirectory.text
         property alias highAccuracyMode: highAccuracyMode.checked
     }
