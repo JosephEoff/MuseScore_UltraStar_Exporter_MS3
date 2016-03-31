@@ -14,7 +14,7 @@ import FileIO 1.0
 //Copyright Joseph Eoff, April 2015
 MuseScore {
 	menuPath: "Plugins." + "Ultrastar Export"
-	version: "1.1"
+	version: "1.11"
 	description: "Export to Ultrastar format"
 
 	onRun: {
