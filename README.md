@@ -13,6 +13,7 @@ Features:
 * Selection of the Instrument and Voice to be used for the lyrics for player 1 and player 2.
 * Annotator to mark line breaks and golden or freestyle notes.
 * Supports tempo changes (tested with Performous)
+* Support for tied notes (changed text or note annotations will break tied notes.)
 
 Usage:
 
