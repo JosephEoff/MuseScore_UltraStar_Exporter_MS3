@@ -6,32 +6,27 @@ import Qt.labs.settings 1.0
 // FileDialog
 import Qt.labs.folderlistmodel 2.1
 import QtQml 2.2
-import MuseScore 1.0
-import FileIO 1.0
+import MuseScore 3.0
+import FileIO 3.0
 
 
 // This MuseScore Plugin is licensed under the GPL Version 2
 //Copyright Joseph Eoff, April 2015
 MuseScore {
 	menuPath: "Plugins." + "Ultrastar Export"
-	version: "1.11"
+	version: "2.0"
 	description: "Export to Ultrastar format"
+	requiresScore: true
 
 	onRun: {
 		exportDialog.visible = false
 		// check MuseScore version
-		if (!(mscoreMajorVersion == 2 && (mscoreMinorVersion > 0 || mscoreUpdateVersion > 0))) {
+		if ((mscoreMajorVersion == 3) && (mscoreMinorVersion == 0) && (mscoreUpdateVersion < 5)) {
 			errorDialog.openErrorDialog(
-						qsTr("Minimum MuseScore Version %1 required for export").arg("2.0.1"))
+						qsTr("Minimum MuseScore Version %1 required for export").arg("3.0.5"))
 		}
-		if (!(curScore)) {
-			errorDialog.openErrorDialog(qsTranslate("QMessageBox",
-					"No score open.\nThis plugin requires an open score to run.\n"))
-			Qt.quit()
-		} else {
-			exportDialog.visible = true
-			fillDefaultValues()
-		}
+		exportDialog.visible = true
+		fillDefaultValues()
 	}
 
 	Component.onDestruction: {
@@ -51,16 +46,23 @@ MuseScore {
 
 	function loadInstrumentList(instrumentList) {
 		for (var i = 0; i < curScore.parts.length; i++) {
-			var partname = curScore.parts[i].partName
-			instrumentList.append({
-									partname: partname
-								})
+			var partName = curScore.parts[i].name;
+			//in v3.0.5/3.1 plugin framework isn't able to return the actual instrument/partname
+			if (partName === "Part") { // so let's enumerate it in that case
+				partName += " " + (i + 1);
+			}
+			instrumentList.append({ partname: partName });
 		}
 	}
 
 	function loadVoiceList(instrumentName, voiceList, voiceCombo) {
 		for (var i = 0; i < curScore.parts.length; i++) {
-			if (curScore.parts[i].partName === instrumentName) {
+			var partName = curScore.parts[i].name;
+			//in v3.0.5/3.1 plugin framework isn't able to return the actual instrument/partname
+			if (partName === "Part") { // so let's enumerate it in that case
+				partName += " " + (i + 1);
+			}
+			if (partName === instrumentName) {
 				voiceList.clear();
 				for (var j = 0; j < (curScore.parts[i].endTrack - curScore.parts[i].startTrack); j++) {
 					voiceList.append({ j: (j + 1) });
@@ -255,7 +257,8 @@ MuseScore {
 
 	function exportTxtFile() {
 		var crlf = "\r\n"
-		if (!(curScore.title)) {
+		var title = curScore.metaTag("workTitle");
+		if (!(title)) {
 			warningDialog.openWarningDialog(qsTr("Score must have a title."))
 			return false
 		}
@@ -264,7 +267,6 @@ MuseScore {
 		console.log(filename)
 
 		var txtContent = ""
-		var title = curScore.title
 		if (duet.checked) {
 			title += " Duet"
 		}
@@ -274,11 +276,12 @@ MuseScore {
 		}
 		txtContent += "#TITLE:" + title + crlf
 
-		if (!(curScore.composer)) {
+		var composer = curScore.metaTag("composer");
+		if (!(composer)) {
 			warningDialog.openWarningDialog(qsTr("Score must have a composer."))
 			return false
 		}
-		txtContent += "#ARTIST:" + curScore.composer + crlf
+		txtContent += "#ARTIST:" + composer + crlf
 
 		txtContent += "#MP3:" + filenameFromScore() + ".mp3" + crlf
 		txtContent += "#VIDEO:" + crlf
@@ -371,7 +374,7 @@ MuseScore {
 					tookAbreak=false;
 					timestamp_midi_ticks = calculateMidiTicksfromTicks(cursor.tick);
 				}
-				pitch_midi = cursor.element.notes[0].ppitch
+				pitch_midi = cursor.element.notes[0].pitch
 				duration_midi_ticks += calculateMidiTicksfromTicks(cursor.element.duration.ticks);
 			
 				if (!gotfirstsyllable) {
@@ -472,7 +475,12 @@ MuseScore {
 
 	function getCursor(instrument, voice) {
 		for (var i = 0; i < curScore.parts.length; i++) {
-			if (curScore.parts[i].partName === instrument) {
+			var partName = curScore.parts[i].name;
+			//in v3.0.5/3.1 plugin framework isn't able to return the actual instrument/partname
+			if (partName === "Part") { // so let's enumerate it in that case
+				partName += " " + (i + 1);
+			}
+			if (partName === instrument) {
 				var track = curScore.parts[i].startTrack + parseInt(voice, 10)
 				var cursor = curScore.newCursor(true)
 				cursor.rewind(1)
@@ -530,7 +538,7 @@ MuseScore {
 	}
 
 	function filenameFromScore() {
-		var name = curScore.title
+		var name = curScore.metaTag("workTitle");
 		if (duet.checked) {
 			name += " duet"
 		}

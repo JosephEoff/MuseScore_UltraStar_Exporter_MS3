@@ -5,8 +5,8 @@ import QtQuick.Dialogs 1.2
 // FileDialog
 import Qt.labs.folderlistmodel 2.1
 import QtQml 2.2
-import MuseScore 1.0
-import FileIO 1.0
+import MuseScore 3.0
+import FileIO 3.0
 
 
 // This MuseScore Plugin is licensed under the GPL Version 2
