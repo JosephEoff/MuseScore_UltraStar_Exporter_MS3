@@ -4,7 +4,7 @@ This plugin exports the lyrics and the music of a score into the UltraStar forma
 
 These programs generally attempt to match lyrics and tone notations to an existing mp3 recording of a song. The basic idea of these kinds of games looks like it would work well for practicing, but the existing mp3 files are usually the original song from the original artist. While this works well when singing just for fun, it makes it difficult for the singer to really learn from his performance.
 
-This plugin requires MuseScore 2.0.1 or above.
+This plugin requires MuseScore 3.0.5 or above.
 
 Features:
 * Export of the musical score to an mp3 file.
@@ -26,5 +26,3 @@ Usage:
 Alternatively, use the Annotator (Menu View/UltraStar Annotator.) Select a note with Shift and Left mouse button - draw a box around the note. Click the appropriate button to add the annotation.
 
 Make sure to select the correct instrument when exporting.
-
-The plugin has been tested under Windows7 against release 2.0.2 and Linux.
